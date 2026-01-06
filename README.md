@@ -9,11 +9,11 @@ Rationale
 The lines in `authorized_keys` files can be very long. This makes it difficult to check for the presence of a particular key, or to get an overview of which keys are enabled. In addition, there can be long strings of options at the start of a line (eg `no-pty` and `command=...`).
 
 Usage
------1020304050
+-----
 
 The `summarize-ssh-keys` utility reads from `stdin` and outputs a summary on `stdout`. Typical output looks like this:
 
-```
+```text
 [0] ecdsa I4SlvC1K+Q neil@windermere
 [0] rsa   wfgIuusN3F neil@strauss
 [0] rsa   DhPnKnQvew neil@strauss-WIN7-32
@@ -35,25 +35,25 @@ Examples
 
 Basic usage:
 
-```
+```bash
 summarize-ssh-keys <~/.ssh/authorized_keys
 ```
 
 Checking the keys for someone else's account:
 
-```
+```bash
 sudo cat ~another/.ssh/authorized_keys | summarize-ssh-keys
 ```
 
 Checking the keys for an account on a remote machine:
 
-```
+```bash
 ssh someone@somewhere cat .ssh/authorized_keys | summarize-ssh-keys
 ```
 
 When visually checking for the  presence of a particular key, first run the key itself through `summarize-ssh-keys` to discover its abbreviated value, so you can look for that string in summaries:
 
-```
+```bash
 summarize-ssh-keys <~/.ssh/id_rsa.pub
 ```
 

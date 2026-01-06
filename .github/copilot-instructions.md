@@ -6,11 +6,11 @@ A Haskell utility that parses SSH `authorized_keys` files and produces human-rea
 ## Architecture
 
 ### Core Components
-- **[SSHKeys.hs](../SSHKeys.hs)**: Parser module using Parsec that defines the OpenSSH public key format grammar
+- **SSHKeys.hs**: Parser module using Parsec that defines the OpenSSH public key format grammar
   - `Line` ADT with three variants: `Entry` (key metadata), `Comment`, `EmptyLine`
   - `Entry` tuple structure: `([Option], String, String, String)` = (options, key-type, hash, comment)
   - Parser combinators follow standard Parsec patterns with `<|>` for alternatives and `sepEndBy` for repetition
-- **[SummarizeSSHKeys.hs](../SummarizeSSHKeys.hs)**: CLI executable that orchestrates parsing and formatting
+- **SummarizeSSHKeys.hs**: CLI executable that orchestrates parsing and formatting
   - Uses `optparse-applicative` for command-line arg parsing
   - Reads from stdin by default (`/dev/stdin`) or accepts file arguments
   - Terminal-aware formatting with `terminal-size` library
@@ -31,14 +31,14 @@ A Haskell utility that parses SSH `authorized_keys` files and produces human-rea
 
 ### Testing Framework
 - Uses `HUnit` test framework embedded in source files
-- [QuietTesting.hs](../QuietTesting.hs) provides `runTestTTquiet` wrapper to suppress verbose HUnit output (write errors/failures only to stderr)
-- [TestMain.hs](../TestMain.hs) aggregates tests and exits with status code if failures exist
+- QuietTesting.hs provides `runTestTTquiet` wrapper to suppress verbose HUnit output (write errors/failures only to stderr)
+- TestMain.hs aggregates tests and exits with status code if failures exist
 - Test suite runs via `cabal test`
 
 ### Build & Packaging
 - **Cabal**: Primary build tool - `cabal build` compiles, `cabal test` runs tests
-- **Nix**: Alternative reproducible build using [default.nix](../default.nix) with `nix-build`
-- **Debian**: Packaged via [debian/](../debian/) with source format 3.0 (quilt)
+- **Nix**: Alternative reproducible build using default.nix with `nix-build`
+- **Debian**: Packaged via debian/ with source format 3.0 (quilt)
 
 ## Development Workflows
 
@@ -49,12 +49,12 @@ cabal test                     # Run test suite
 ```
 
 ### Add Features
-1. **Parser changes**: Modify combinators in [SSHKeys.hs](../SSHKeys.hs), update `testData`/`testResult` in same file
-2. **CLI changes**: Extend `Options` record in [SummarizeSSHKeys.hs](../SummarizeSSHKeys.hs), adjust `optparse-applicative` parsers
+1. **Parser changes**: Modify combinators in SSHKeys.hs, update `testData`/`testResult` in same file
+2. **CLI changes**: Extend `Options` record in SummarizeSSHKeys.hs, adjust `optparse-applicative` parsers
 3. **Output formatting**: Adjust `summOpts`, `summKind`, `summHash` formatting functions
 
 ### Testing Strategy
-- Embed test cases directly in [SSHKeys.hs](../SSHKeys.hs) alongside parser definitions
+- Embed test cases directly in SSHKeys.hs alongside parser definitions
 - Use `~?=` operator for HUnit assertions
 - Reload test data string immediately when parser grammar changes
 
@@ -74,8 +74,8 @@ cabal test                     # Run test suite
 ## File Reference Guide
 | File | Purpose |
 |------|---------|
-| [SummarizeSSHKeys.hs](../SummarizeSSHKeys.hs) | Main executable entry point |
-| [SSHKeys.hs](../SSHKeys.hs) | Parser module + embedded tests |
-| [QuietTesting.hs](../QuietTesting.hs) | HUnit test output suppression helper |
-| [TestMain.hs](../TestMain.hs) | Test aggregation and exit code handling |
-| [SummarizeSSHKeys.cabal](../SummarizeSSHKeys.cabal) | Package metadata & dependencies |
+| SummarizeSSHKeys.hs | Main executable entry point |
+| SSHKeys.hs | Parser module + embedded tests |
+| QuietTesting.hs | HUnit test output suppression helper |
+| TestMain.hs | Test aggregation and exit code handling |
+| SummarizeSSHKeys.cabal | Package metadata & dependencies |
