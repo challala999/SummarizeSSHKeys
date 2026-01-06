@@ -9,7 +9,7 @@ Rationale
 The lines in `authorized_keys` files can be very long. This makes it difficult to check for the presence of a particular key, or to get an overview of which keys are enabled. In addition, there can be long strings of options at the start of a line (eg `no-pty` and `command=...`).
 
 Usage
------
+-----1020304050
 
 The `summarize-ssh-keys` utility reads from `stdin` and outputs a summary on `stdout`. Typical output looks like this:
 
